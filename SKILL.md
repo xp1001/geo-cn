@@ -1,7 +1,7 @@
 ---
 name: geo-cn
 description: "GEO-CN (Generative Engine Optimization China) — 面向中国市场的 GEO 执行技能。覆盖百度百科、抖音百科、知乎、豆包、文心一言、DeepSeek 等国内平台。诊断→优化→监测，三阶段闭环。"
-homepage: "https://skillhub.cn/skills/geo-cn"
+homepage: "https://github.com/xp1001/geo-cn"
 metadata:
   openclaw:
     emoji: "🧭"
