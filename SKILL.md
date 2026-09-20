@@ -1,11 +1,11 @@
 ---
 name: geo-cn
-description: GEO-CN v2.0.3 (AI Native) — 面向中国市场的生成式引擎优化执行技能。以「直接问 AI」为地面真值、分层证据审计为引擎，诊断→优化→监测三阶段闭环。覆盖豆包、文心一言、DeepSeek、Kimi、元宝，及百科/知乎/抖音/小红书/B站/地图生态。
+description: GEO-CN v2.0.4 (AI Native) — 面向中国市场的生成式引擎优化执行技能。以「直接问 AI」为地面真值、分层证据审计为引擎，诊断→优化→监测三阶段闭环。覆盖豆包、文心一言、DeepSeek、Kimi、元宝，及百科/知乎/抖音/小红书/B站/地图生态。
 homepage: https://github.com/xp1001/geo-cn
 metadata:
   openclaw:
     emoji: 🧭
-    version: 2.0.3
+    version: 2.0.4
     requires:
       bins: []
     install: []
@@ -35,6 +35,9 @@ metadata:
 > **v2.0.3（2026-09-20）：** 修正 v2.0.2「AI 自查字段不问用户」的过度表述——平台账号等
 > 改为**先自查、再确认式提问**：无官网、封闭平台要分享链接、有号搜不到三种情况必须问，
 > 问时附操作指引。
+>
+> **v2.0.4（2026-09-20）：** 成果报告升级**双格式落盘**——`.md`（AI 存档伴侣）+ `.html`
+> （客户直接浏览器打开的成品网页报告：内置样式、手机适配）；明示未经客户同意不得部署公网。
 
 ---
 
@@ -323,12 +326,14 @@ v2.0 格式：**实体档案 + 记录数组** 二合一，追加式，含勘误�
 
 ---
 
-### 第六步：成果报告落盘（人类可读，每次诊断/监测必出）
+### 第六步：成果报告落盘（双格式，每次诊断/监测必出）
 
-> JSON 存档是给 AI 下次读的；下面这份 Markdown 报告是给客户看的——**小白唯一需要保存的东西**。
-> 路径：`geo-clients/{品牌名}-报告-{YYYY-MM-DD}.md`；无写权限时直接在对话输出全文，请用户复制保存。
+> **两份文件，两个读者：** `.md` 是 AI 下次监测的输入（存档伴侣）；`.html` 是给客户看的
+> 成品网页报告——内置样式、双击浏览器打开、微信里可直接看，**小白唯一需要保存的东西**。
+> 路径：`geo-clients/{品牌名}-报告-{YYYY-MM-DD}.md` 与同名 `.html`。
+> 无写权限时在对话输出 Markdown 全文，请用户复制保存。
 
-模板：
+**Markdown 模板（内容基准，HTML 与它同内容）：**
 
 ```markdown
 # GEO 诊断/监测报告 —— {品牌名}（{YYYY-MM-DD}）
@@ -356,8 +361,58 @@ v2.0 格式：**实体档案 + 记录数组** 二合一，追加式，含勘误�
 {建议日期}——届时重测 AI 引用率，验证待办的效果。
 ```
 
+**HTML 模板（客户看的成品网页，占位符与 Markdown 相同；等级取色：A `#2f855a` / B `#2b6cb0` / C `#c05621` / D `#c53030`）：**
+
+```html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO 报告 — {品牌名}（{日期}）</title>
+<style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;background:#f5f6f8;color:#222;line-height:1.7}
+.wrap{max-width:720px;margin:0 auto;padding:24px 16px}
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.score{display:flex;align-items:center;gap:18px}
+.num{font-size:56px;font-weight:700;color:{等级色}}
+.tag{display:inline-block;background:#eef4ff;color:#2b6cb0;border-radius:6px;padding:2px 10px;font-size:13px;margin:2px 6px 2px 0}
+h2{font-size:17px;margin:0 0 10px;border-left:4px solid #2b6cb0;padding-left:10px}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{border-bottom:1px solid #eee;padding:8px 6px;text-align:left;vertical-align:top}
+th{color:#666;font-weight:500;background:#fafafa}
+.todo{background:#fff8ec}
+.muted{color:#888;font-size:13px}
+ul{padding-left:20px;margin:8px 0}
+</style>
+</head>
+<body><div class="wrap">
+<div class="card"><div class="score">
+<div class="num">{分数}</div>
+<div><strong style="font-size:20px">{品牌名}</strong><br>
+<span class="tag">{等级，如 🟡 B}</span><span class="tag">{诊断/监测}</span><span class="tag">{日期}</span><br>
+<span class="muted">{一句话结论}</span></div>
+</div></div>
+<div class="card"><h2>📊 AI 引用率</h2>
+<table><tr><th>问题</th><th>平台</th><th>结果</th></tr>
+{每问一行：<tr><td>{问题}</td><td>{平台}</td><td>✅ 被引用（第N位，信源：xx）／❌ 未引用</td></tr>}
+</table></div>
+<div class="card"><h2>✅ 本次完成了什么</h2><ul><li>{逐条，没做的写明没做}</li></ul></div>
+<div class="card"><h2>🔍 发现了什么</h2><ul><li>{大白话发现＋所以意味着什么}</li></ul></div>
+<div class="card todo"><h2>📝 您需要做的事</h2>
+<table><tr><th>做什么</th><th>怎么做</th><th>耗时</th></tr>
+{每条待办一行：<tr><td>{P0动作}</td><td>{操作指引}</td><td>{10分钟}</td></tr>}
+</table></div>
+<div class="card"><h2>🤖 AI 已帮您做了什么</h2><ul><li>{已完成动作，下次自动复核}</li></ul></div>
+<div class="card"><h2>📅 下次监测</h2><p>{建议日期}——届时重测 AI 引用率，验证待办效果。</p></div>
+<p class="muted" style="text-align:center">由 GEO-CN 技能自动生成 · {YYYY-MM-DD}</p>
+</div></body></html>
+```
+
 **写作要求：** 全文零术语，必须出现的术语当场用括号解释；"您需要做的事"每条必须带"怎么做"；
-"发现了什么"每条必须落到"所以意味着什么"。诊断与监测都要出这份报告。
+"发现了什么"每条必须落到"所以意味着什么"。诊断与监测都要出这两份文件。
+**隐私红线：** 报告含客户地址、电话、经营数据，**默认只落本地，禁止部署到公网**；
+客户明确要"分享链接"时才可托管，且须隐去敏感字段并使用带随机 token 的 URL。
 
 ---
 
