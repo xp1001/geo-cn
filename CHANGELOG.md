@@ -2,6 +2,8 @@
 
 所有显著变更记录于此。版本遵循语义化版本（MAJOR.MINOR.PATCH）。
 
+> **发布状态（发版渠道核对，v1.4.6 吸收规矩反哺）：** git 仓 v2.1.3 已推送（origin/main 同步）；skillhub 安装副本 v2.0.4 **落后 3 个 minor 待重发**；本地 workbuddy 副本=git 仓（随源码使用）。
+
 ## v2.1.3 (2026-11-14)
 
 > 依据 engineering-loop v1.4.4 判据复审（C1-C8 八类失败类别逐类过堂）。三项小修。
