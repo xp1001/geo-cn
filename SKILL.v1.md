@@ -18,6 +18,8 @@ metadata:
 
 # GEO-CN Skill — 生成式引擎优化（中国市场版）
 
+> ⚠️ **本文件为 v1 存档（2026-06，已被 v2.x 取代），仅供溯源，勿作执行依据。** 现行协议见 [SKILL.md](SKILL.md)，完整版本史见 [CHANGELOG.md](CHANGELOG.md)。
+
 > 品牌在 AI 时代的"SEO"。让客户的企业在豆包、文心一言、DeepSeek、Kimi 等国内 AI 工具的回复中被优先引用。
 
 ## 触发关键词
